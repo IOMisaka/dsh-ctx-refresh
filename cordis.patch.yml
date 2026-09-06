@@ -1,0 +1,8 @@
+# dsh-ctx-refresh — bundle patch: one plugin row loading both halves.
+# host half registers POST /refresh-model-ctx + GET /ctx-refresh/state on the
+# webServer and auto-syncs model context windows on agent/inbox/inserted;
+# client half renders a settings card (Plugins section) plus an ambient chip
+# under the composer showing sync progress/result.
+- insert:
+    - id: dsh-ctx-refresh
+      name: dsh-ctx-refresh
