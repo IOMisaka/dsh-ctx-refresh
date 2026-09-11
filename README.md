@@ -77,7 +77,13 @@ dsh plugin --profile web remove dsh-ctx-refresh
 
 ## 依赖与要求
 
-- 宿主端 import `@deepseek-ai/schemastery`（zod schema）与
-  `@deepseek-ai/dsh-settings`（settings section/namespace），声明为 optional
-  peerDependencies——由 DSH 部署的 profile node_modules 提供，无需单独安装。
+- 兼容当前 0.1.5-rc DSH 布局：沿用同一 settings API（`installSection` / `get` /
+  `mutate`）、webServer exact routes、credentials resolve 与
+  `agent/inbox/inserted` 事件；客户端 slot 契约（`settings.plugin.item` keyed card +
+  hooks→`useXxx` props，`conversation.composer.dock`)与 `settingsScope` API 均未变。
+- 宿主端在运行时解析 `@deepseek-ai/schemastery`：平台 monorepo 树内直接可用，
+  否则从本包位置向上找 vendor 副本；两者都不可达时命名空间注册退化为保留默认值的
+  identity validator（默认值仍经 entry base 生效，行为不变）。
+- 客户端仅需 react seed + `@deepseek-ai/dsh-client-store`（冻结模块表基线）；旧的
+  `dsh-client-runtime/client` supplier 已不在该表中。
 - 要求部署存在 `llm-pi-ai` settings namespace；不存在时插件静默空转（不报错）。
